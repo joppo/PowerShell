@@ -4,9 +4,17 @@ $shell = $Host.UI.RawUI
 $shell.BackgroundColor="Black"
 $shell.ForegroundColor="Green"
 
-#added notepad alias
-new-item alias:np -value C:\Windows\System32\notepad.exe
+#copies $lineNumber commands back in the clipboard
+#DEFAULT (with no parameters) copies the last executed command into clipboard
+function cll ($lineNumber = 1) {
+	(Get-History)[-1 * $lineNumber].CommandLine | clip
+}
+
+#BEGIN aliases
+
 new-item alias:npp -value "C:\Program Files (x86)\Notepad++\notepad++.exe"
+
+#END aliases
 
 $width = ($Host.UI.RawUI.WindowSize.Width - 2 - $(Get-Location).ToString().Length)
 
